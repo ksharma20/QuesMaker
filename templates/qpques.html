@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Questions{% endblock title %}
+
+{% block body %}
+{% if Qp %}
+<center><h1> You are Editting : <strong> {{Qp.subject}} {{Qp.num}} </strong> </h1></center>
+{% endif %}
+{% if Ques %}
+{% for qs in Ques %}
+<div class="px-4 py-5 my-5 text-center">
+    <img class="d-block mx-auto mb-4" src="/media/{{qs.img}}" alt="" width="150" height="100">
+    <h4 class="display-5">Question {{qs.num}} of SET {{qs.set_name}}</h4>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">{{qs.text}}</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href='/edit/q/{{qs.id}}' class="btn btn-primary btn-lg px-4 gap-3">Edit</a>
+            <a href='/edit/q/{{qs.id}}/delete' class="btn btn-outline-danger btn-lg px-4">Delete</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<div class="px-4 py-5 my-5 text-center">
+    <h4 class="display-8 fw-bold">No Questions Available</h4>
+    <div class="col-lg-6 mx-auto">
+    </div>
+</div>
+{% endif %}
+{% if Qp %}
+<div class="px-4 py-5 my-5 text-center">
+    <a href='/edit/{{Qp.id}}/ques'><img  src="/static/add_button.jpg" alt="No Image" width="150" height="150"></a>
+    <h4 class="display-7 fw-bold">Add Ques</h4>
+    <div class="col-lg-6 mx-auto">
+    </div>
+</div>
+{% endif %}
+
+{% endblock body %}

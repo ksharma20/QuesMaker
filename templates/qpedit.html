@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}QuesPaper Edit{% endblock title %}
+
+{% block body %}
+
+<main class='container'>
+    <div class="py-5 text-center">
+      <h2>Add a New QuesPaper to Work on</h2>
+      <p class="lead">Enter Deatils Require to Build a QuesPaper</p>
+    </div>
+    <form class="needs-validation" novalidate method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% if Qid %}
+      <div class="col-12">
+        <label for="QuesPaperNumber" class="form-label">Question Paper Number</label>
+        <input type="number" name='num' class="form-control" id="num" placeholder=" {{Qid.num}} " required>
+      </div>
+      
+      <div class="row g-3">
+        <div class="col-12">
+          <label for="subject" class="form-label">Subject Name</label>
+          <input type="text" name='subject' class="form-control" id="subject" placeholder=" {{Qid.subject}} ">
+        </div>
+        
+        <div class="col-12">
+          <h4>Old QuestionPaper Image</h4> <img src="/media/{{Qid.img}}" alt="Old Image" style="height: 200px; width: 250px;">
+          <br><br><label for="image" class="form-label"><h4>Upload NEW Image</h4> <span class="text-muted"> (New quespaper Image)</span></label>
+          <input type="file" class="form-control" id="image" name="img">
+        </div>
+        <a href="/edit/qp/{{Qid.id}}/delete" style="padding: 10px; background-color: red; color: azure; text-decoration: none;"><center>Delete</center></a>
+        <button class="w-100 btn btn-primary btn-lg" type="submit">Update and Return Home</button>
+        {% else %}
+        <div class="col-12">
+          <label for="QuesPaperNumber" class="form-label">Question Paper Number</label>
+          <input type="number" name='num' class="form-control" id="num" placeholder="Unique Numbers" required>
+          <div class="invalid-feedback">
+            Please enter Valid QP Number.
+          </div>
+        </div>
+  
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="subject" class="form-label">Subject Name</label>
+                <input type="text" name='subject' class="form-control" id="subject" placeholder="Subject Name">
+                <div class="invalid-feedback">
+                  Please enter a valid Subject Name.
+                </div>
+              </div>
+  
+              <div class="col-12">
+                <label for="image" class="form-label">Upload Image <span class="text-muted"> (to recognize your quespaper)</span></label>
+                <input type="file" class="form-control" id="image" name="img">
+              </div>
+              <button class="w-100 btn btn-primary btn-lg" type="submit">Add Questions</button>
+        {% endif %}
+          </form>
+        </div>
+      </div>
+    </main>
+
+    {% endblock body %}
