@@ -10,23 +10,23 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   <div style="display: flex; flex-wrap: wrap; flex-basis: 20%;" class="container fluid">
-    <div class="card mx-5 my-5" style="width: 18rem; height: 20rem">
-      <a href='/edit'> <img src="static/add_button.jpg" class="card-img" alt="Create New Quespaper"> </a>
+    <div class="card mx-5 my-5" style="width: 18rem; height: 25rem">
+      <a href='/edit'> <img src="static/add_button.jpg" class="card-img" alt="Create New Quespaper" style="width: 18rem; height: 18rem"> </a>
       <div class="card-body">
         <h5 class="card-title">Add a New Question Paper</h5>
       </div>
     </div>
   {% if  QuesPaper%}
   {% for QP in QuesPaper %}
-  <div class="card mx-5 my-5" style="width: 18rem; height: 20rem">
-    <img src="/media/{{QP.img}}" class="card-img" alt="No Image" style="width: 18rem; height: 20rem">
+  <div class="card mx-5 my-5" style="width: 18rem; height: 25rem">
+    <img src="/media/{{QP.img}}" class="card-img" alt="No Image" style="width: 18rem; height: 17rem">
     <div class="card-body">
       <center><h5 class="card-title my-3">{{QP.num}} {{QP.subject}}</h5></center>
       {% if Ques %}
       <p class="card-text my-5">Number of Questions in {{QP.subject}}-{{QP.num}} Paper = None</p>
       {% endif %}
       <a href="/edit/qp/{{QP.id}}" class="btn btn-primary mx-2">Edit</a>
-      <a href="/edit/qp/{{QP.id}}/ques" class="btn btn-primary mx-2" style="position: relative; left: 45%;" >Visit</a>
+      <a href="/edit/qp/{{QP.id}}/ques" class="btn btn-primary mx-2" style="position: relative; left: 45%;" >View</a>
     </div>
   </div>
   {% endfor %}

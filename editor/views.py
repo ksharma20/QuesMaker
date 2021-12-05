@@ -38,8 +38,13 @@ def qedit(request, id):
     if request.method == 'POST':
         form = QuesForm(request.POST, request.FILES, instance=obj)
         if form.is_valid():
-            Question.objects.get_or_create(set_name = form.cleaned_data['set_name'], num = form.cleaned_data['num'], img = form.cleaned_data['img'], marks = form.cleaned_data['marks'], text = form.cleaned_data['text'], qpid = obj.qpid)
-            return redirect(f'/edit/{id}/ques')
+            obj.num = form.cleaned_data['num']
+            obj.set_name = form.cleaned_data['set_name']
+            obj.marks = form.cleaned_data['marks']
+            obj.text  = form.cleaned_data['text']
+            obj.img = form.cleaned_data['img']
+            obj.save()
+            return redirect(f'/edit/{obj.qpid.id}/ques')
         else:
             return render(request, 'qedit.html' , {'form': form,})
     

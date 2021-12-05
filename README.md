@@ -16,10 +16,18 @@ Consider Improving it, If you can
 <br>
 
 ## Login Interface 
+##### Credentials for superuser/ superadmin/ Developer
 
 __Username - *admin*__
 
 __password - *pass*__
+
+
+##### Credentials for Normal Site user
+
+__Username - *ksharma20*__
+
+__password - *quesMaker*__
 
 ![image](https://user-images.githubusercontent.com/72795959/144738054-72c8115a-7215-4b9b-9d74-7f571ff4292b.png)
 
@@ -65,6 +73,8 @@ Its Not much Different, But It Give you Power to update or Delete that Particula
 If you See you can also Visit the Question Paper detail from Index / Home page
 
 *Ahhhhhh i just realised I have to Name it __view__ instead of __visit__ But we will do it later* 😒
+
+##### *Updated* : Name Changed to **view** successfully 😎
 
 ![image](https://user-images.githubusercontent.com/72795959/144738822-4dda761c-5040-48fd-8a7a-0d4c38d85171.png)
 ![image](https://user-images.githubusercontent.com/72795959/144738832-3ca77614-3a61-4f2f-b0c9-6bb6277f7963.png)
