@@ -1,6 +1,20 @@
 {% extends 'base.html' %}
 {% block title %}Ques Edit{% endblock title %}
 
+{% block style %}
+
+.django-form ul{
+  margin: 2%;
+
+}
+
+.django-form li{
+  margin: 2%;
+
+}
+
+{% endblock style %}
+
 {% block body %}
 
 <main class='container'>
@@ -12,8 +26,8 @@
     </div>
     <form class="needs-validation container fluid mx-5" novalidate method="post" enctype="multipart/form-data">
       {% csrf_token %}
-          <div class='list-unstyled ' style="justify-content: space-around;">  {{form.as_ul}} </div>
-            <br><br><hr><br>
+          <div class='django-form' style="justify-content: space-around;">  {{form.as_ul}} </div>
+            <br><hr><br>
             <button class="w-100 btn btn-primary btn-lg" type="submit">Add Next Ques</button>
             <a class="w-100 my-5 btn btn-danger btn-lg" href="/">Go to Home</a>
           </form>

@@ -46,10 +46,10 @@ def qedit(request, id):
             obj.save()
             return redirect(f'/edit/{obj.qpid.id}/ques')
         else:
-            return render(request, 'qedit.html' , {'form': form,})
+            return render(request, 'qedit.html' , {'form': form, 'QP': obj.qpid})
     
 
-    return render(request, 'qedit.html' , {'form': form,})
+    return render(request, 'qedit.html' , {'form': form, 'QP': obj.qpid})
 
 
 def qpedit(request, id):
