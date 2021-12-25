@@ -72,7 +72,15 @@ def qpedit(request, id):
 
 
 def qpshow(request, id):
-    return render(request, 'qpques.html', {'Ques': Question.objects.filter(qpid = id), 'Qp': QuestionPapers.objects.get(id =id)})
+    context = {
+        'Ques': Question.objects.filter(qpid = id),
+        'SETA': Question.objects.filter(qpid = id, set_name = 'A'),
+        'SETB': Question.objects.filter(qpid = id, set_name = 'B'),
+        'SETC': Question.objects.filter(qpid = id, set_name = 'C'),
+        'SETD': Question.objects.filter(qpid = id, set_name = 'D'),
+        'Qp': QuestionPapers.objects.get(id =id),
+        }
+    return render(request, 'qpques.html', context)
 
 
 def qpdel(request, id):

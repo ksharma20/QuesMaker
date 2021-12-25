@@ -25,8 +25,9 @@ def ulogin(request):
             login(request, user)
             return redirect('/')
         else:
-            return redirect('/login')
-    return render(request, 'login.html', {})
+            return redirect('login')
+    else:
+        return render(request, 'login.html', {})
 
 
 def ulogout(request):

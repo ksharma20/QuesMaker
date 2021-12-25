@@ -23,7 +23,7 @@ class Question(models.Model):
     qpid = models.ForeignKey(QuestionPapers, on_delete= models.CASCADE, related_name='Qpaper')
 
     def __str__(self):
-        return self.text[:15]
+        return self.text[:25]
 
 
 # Flushing primary key from DataBase where table Name= appname_modelname

@@ -2,38 +2,286 @@
 
 {% block title %}Questions{% endblock title %}
 
+{% block style %}
+
+.tab {
+display: flex;
+justify-content: center;
+overflow: hidden;
+border: 1px solid #ccc;
+background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+background-color: inherit;
+float: left;
+border: none;
+outline: none;
+cursor: pointer;
+padding: 14px 16px;
+transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+display: none;
+padding: 6px 12px;
+border: 1px solid #ccc;
+border-top: none;
+}
+
+{% endblock style %}
+
 {% block body %}
 {% if Qp %}
-<center><h1>Question Paper: <strong> {{Qp.subject}} {{Qp.num}} </strong> </h1></center>
+<div class='d-flex justify-content-around'>
+    <h1>Question Paper </h1>
+    <h1 style="margin-left: -10%;"> <strong> {{Qp.subject}} {{Qp.num}} </strong> </h1>
+    <a href='/edit/{{Qp.id}}/ques' data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add Question">
+        <img src="/static/add_button.jpg" alt="No Image" width="50" height="50">
+    </a>
+</div>
 {% endif %}
-{% if Ques %}
-{% for qs in Ques %}
-<div class="px-4 py-5 my-5 text-center">
-    <img class="d-block mx-auto mb-4" src="/media/{{qs.img}}" alt="" width="150" height="100">
-    <h4 class="display-5">Question {{qs.num}} of SET {{qs.set_name}}</h4>
-    <div class="col-lg-6 mx-auto">
-        <p class="lead mb-4">{{qs.text}}</p>
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <a href='/edit/q/{{qs.id}}' class="btn btn-primary btn-lg px-4 gap-3">Edit</a>
-            <a href='/edit/q/{{qs.id}}/delete' class="btn btn-outline-danger btn-lg px-4">Delete</a>
+
+<div class="container tab my-5">
+    <button class="tablinks" onclick="openSet(event, 'SETA')">SET A</button>
+    <button class="tablinks" onclick="openSet(event, 'SETB')">SET B</button>
+    <button class="tablinks" onclick="openSet(event, 'SETC')">SET C</button>
+    <button class="tablinks" onclick="openSet(event, 'SETD')">SET D</button>
+    <button class="tablinks" id='defaultOpen' onclick="openSet(event, 'ALLQues')">ALL</button>
+</div>
+
+<!-- Tab content -->
+<div class="container">
+
+    <div id="SETA" class="tabcontent card">
+        <div class="d-flex justify-content-between card-header">
+            <h3>SET A Questions</h3>
+            <button onclick="printpg()"> <i class="bi bi-file-earmark-arrow-down-fill"></i> </button>
         </div>
+        {% if SETA %}
+        {% for qs in SETA %}
+        <div class="d-flex justify-content-between card-body align-items-center">
+            <div style="width: 15%"> <button type="button" data-bs-toggle="modal" data-bs-target="#SETAModal{{qs.id}}">
+                    <img src="/media/{{qs.img}}" alt="QuesImg" width="100%">
+                </button> </div>
+            <div style="width: 70%;">
+                <h4> Question {{qs.num}} </h4>
+                <p> {{qs.text}} </p>
+            </div>
+            <div style="width: 10%;">
+                <a href='/edit/q/{{qs.id}}' class="btn btn-primary btn-sm">Edit</a>
+                <a href='/edit/q/{{qs.id}}/delete' class="btn btn-outline-danger btn-sm">Delete</a>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="SETAModal{{qs.id}}" tabindex="-1" aria-labelledby="SETAModal{{qs.id}}Label"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="SETAModal{{qs.id}}Label">Ques {{qs.num}} Image</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="/media/{{qs.img}}" alt="QuesImg" height="100%" width="100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
     </div>
-</div>
-{% endfor %}
-{% else %}
-<div class="px-4 py-5 my-5 text-center">
-    <h4 class="display-8 fw-bold">No Questions Available</h4>
-    <div class="col-lg-6 mx-auto">
+
+    <div id="SETB" class="tabcontent card">
+        <div class="d-flex justify-content-between card-header">
+            <h3>SET B Questions</h3>
+            <button onclick="printpg()"> <i class="bi bi-file-earmark-arrow-down-fill"></i> </button>
+        </div>
+        {% if SETB %}
+        {% for qs in SETB %}
+        <div class="d-flex justify-content-between card-body align-items-center">
+            <div style="width: 15%"> <button type="button" data-bs-toggle="modal" data-bs-target="#SETBModal{{qs.id}}">
+                    <img src="/media/{{qs.img}}" alt="QuesImg" width="100%">
+                </button> </div>
+            <div style="width: 70%;">
+                <h4> Question {{qs.num}} </h4>
+                <p> {{qs.text}} </p>
+            </div>
+            <div style="width: 10%;">
+                <a href='/edit/q/{{qs.id}}' class="btn btn-primary btn-sm">Edit</a>
+                <a href='/edit/q/{{qs.id}}/delete' class="btn btn-outline-danger btn-sm">Delete</a>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="SETBModal{{qs.id}}" tabindex="-1" aria-labelledby="SETBModal{{qs.id}}Label"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="SETBModal{{qs.id}}Label">Ques {{qs.num}} Image</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="/media/{{qs.img}}" alt="QuesImg" height="100%" width="100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
     </div>
-</div>
-{% endif %}
-{% if Qp %}
-<div class="px-4 py-5 my-5 text-center">
-    <a href='/edit/{{Qp.id}}/ques'><img  src="/static/add_button.jpg" alt="No Image" width="150" height="150"></a>
-    <h4 class="display-7 fw-bold">Add Ques</h4>
-    <div class="col-lg-6 mx-auto">
+
+    <div id="SETC" class="tabcontent card">
+        <div class="d-flex justify-content-between card-header">
+            <h3>SET C Questions</h3>
+            <button onclick="printpg()"> <i class="bi bi-file-earmark-arrow-down-fill"></i> </button>
+        </div>
+        {% if SETC %}
+        {% for qs in SETC %}
+        <div class="d-flex justify-content-between card-body align-items-center">
+            <div style="width: 15%"> <button type="button" data-bs-toggle="modal" data-bs-target="#SETCModal{{qs.id}}">
+                    <img src="/media/{{qs.img}}" alt="QuesImg" width="100%">
+                </button> </div>
+            <div style="width: 70%;">
+                <h4> Question {{qs.num}} </h4>
+                <p> {{qs.text}} </p>
+            </div>
+            <div style="width: 10%;">
+                <a href='/edit/q/{{qs.id}}' class="btn btn-primary btn-sm">Edit</a>
+                <a href='/edit/q/{{qs.id}}/delete' class="btn btn-outline-danger btn-sm">Delete</a>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="SETCModal{{qs.id}}" tabindex="-1" aria-labelledby="SETCModal{{qs.id}}Label"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="SETCModal{{qs.id}}Label">Ques {{qs.num}} Image</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="/media/{{qs.img}}" alt="QuesImg" height="100%" width="100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
     </div>
+
+    <div id="SETD" class="tabcontent card">
+        <div class="d-flex justify-content-between card-header">
+            <h3>SET D Questions</h3>
+            <button onclick="printpg()"> <i class="bi bi-file-earmark-arrow-down-fill"></i> </button>
+        </div>
+        {% if SETD %}
+        {% for qs in SETD %}
+        <div class="d-flex justify-content-between card-body align-items-center">
+            <div style="width: 15%"> <button type="button" data-bs-toggle="modal" data-bs-target="#SETDModal{{qs.id}}">
+                    <img src="/media/{{qs.img}}" alt="QuesImg" width="100%">
+                </button> </div>
+            <div style="width: 70%;">
+                <h4> Question {{qs.num}} </h4>
+                <p> {{qs.text}} </p>
+            </div>
+            <div style="width: 10%;">
+                <a href='/edit/q/{{qs.id}}' class="btn btn-primary btn-sm">Edit</a>
+                <a href='/edit/q/{{qs.id}}/delete' class="btn btn-outline-danger btn-sm">Delete</a>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="SETDModal{{qs.id}}" tabindex="-1" aria-labelledby="SETDModal{{qs.id}}Label"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="SETDModal{{qs.id}}Label">Ques {{qs.num}} Image</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="/media/{{qs.img}}" alt="QuesImg" height="100%" width="100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <div id="ALLQues" class="tabcontent">
+        {% if Ques %}
+        {% for qs in Ques %}
+        <div class="py-5 my-5 text-center">
+            <img class="d-block mx-auto mb-4" src="/media/{{qs.img}}" alt="" width="150" height="100">
+            <h4 class="display-5">Question {{qs.num}} of SET {{qs.set_name}}</h4>
+            <div class="col-lg-6 mx-auto">
+                <p class="lead mb-4">{{qs.text}}</p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a href='/edit/q/{{qs.id}}' class="btn btn-primary btn-lg">Edit</a>
+                    <a href='/edit/q/{{qs.id}}/delete' class="btn btn-outline-danger btn-lg">Delete</a>
+                </div>
+            </div>
+            <hr>
+            <hr>
+        </div>
+        {% endfor %}
+        {% if Qp %}
+        <div class="py-5 my-5 text-center">
+            <a href='/edit/{{Qp.id}}/ques'><img src="/static/add_button.jpg" alt="No Image" width="150"
+                    height="150"></a>
+            <h4 class="display-7 fw-bold">Add Ques</h4>
+            <div class="col-lg-6 mx-auto">
+            </div>
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
+
 </div>
-{% endif %}
+
+<script>
+    document.getElementById("defaultOpen").click();
+    function openSet(evt, SetName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(SetName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    function printpg() { 
+        window.print(); 
+      }
+</script>
 
 {% endblock body %}
